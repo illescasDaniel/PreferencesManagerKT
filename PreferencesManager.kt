@@ -50,6 +50,7 @@ class PreferencesManager {
 
 	fun remove(property: Properties): PreferencesManager {
 		this.editor?.remove(property.name)
+		this.editor?.apply()
 		return this
 	}
 
