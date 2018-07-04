@@ -41,8 +41,8 @@ PreferencesManager.shared[Properties.username] = "daniel"
 
 // Recommended when modifying multiple properties
 PreferencesManager.shared.apply (
-    Properties.username to emailStr,
-    Properties.password to passwordStr
+    username to Properties.username,
+    password to Properties.password
 )
 ```
 **Optional:** you can change the internal preferences name value by modifying the `PreferencesManager.name` property.
