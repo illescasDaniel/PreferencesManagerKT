@@ -5,34 +5,35 @@
 
 A simple way to manage local values in your Android apps.
 
+Setup
+-----
+
+1. Add your properties inside the `PreferencesManager` class (name of the values it will save):
+	```kotlin
+	enum class Properties {
+	    isLogged,
+	    username, password
+	    // ...
+	}
+	```
+2. Initialize the preferences manager in the **first activity** of the app:
+
+	```kotlin
+	PreferencesManager.initializeFrom(this)
+	```
+
 Usage
 -----
 
-Inside the PreferencesManager class, add your **properties** (name of the values it will save):
-
-```kotlin
-enum class Properties {
-    isLogged,
-    username, password
-    // ...
-}
-```
-
-Then, call this in the **first activity**:
-
-```kotlin
-PreferencesManager.initializeFrom(this)
-```
-
-**Get** property values (second parameter is the default value):
+### Get saved values:
 
 ```Kotlin
 PreferencesManager.shared[Properties.username, ""]
 ```
 
-**Note:** you may want to do `import com.yourpackage.PreferencesManager.Properties`
+**Notes:** second parameter is the default value. Also, you may want to add `import com.yourpackage.PreferencesManager.Properties` in the file you're using it.
 
-**Set** values:
+### **Set** values:
 
 ```kotlin
 // When is only one
