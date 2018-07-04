@@ -28,7 +28,7 @@ Usage
 ### Get saved values:
 
 ```Kotlin
-PreferencesManager.shared[Properties.username, ""]
+val savedUsername = PreferencesManager.shared[Properties.username, ""]
 ```
 
 **Notes:** second parameter is the default value. Also, you may want to add `import com.yourpackage.PreferencesManager.Properties` in the file you're using it.
