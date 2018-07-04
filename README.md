@@ -44,3 +44,4 @@ PreferencesManager.shared.apply (
     Properties.password to passwordStr
 )
 ```
+**Optional:** you can change the internal preferences name value by modifying the `PreferencesManager.name` property.

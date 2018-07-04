@@ -13,7 +13,7 @@ class PreferencesManager {
 
 	companion object {
 		var shared = PreferencesManager()
-		const val name = "ChikkaPreferences"
+		const val name = "UserPreferences"
 
 		fun initializeFrom(context: Context) {
 			shared.preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
