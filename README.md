@@ -5,6 +5,8 @@
 
 A simple way to manage local values in your Android apps.
 
+iOS version [here](https://github.com/illescasDaniel/PreferencesManagerSwift).
+
 Setup
 -----
 
