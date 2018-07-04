@@ -1,4 +1,4 @@
-# PreferencesManager
+# PreferencesManagerKT
 
 [![Kotlin version](https://img.shields.io/badge/Kotlin-1.2-brightgreen.svg)](https://kotlinlang.org/)
 [![license](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/illescasDaniel/PreferencesManager/blob/master/LICENSE)
