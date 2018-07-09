@@ -22,8 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-package es.everywaretech.chikka.models
-
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
