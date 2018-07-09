@@ -22,6 +22,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
+package es.everywaretech.chikka.models
+
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.Gson
@@ -37,19 +39,27 @@ class PreferencesManager {
     var editor: SharedPreferences.Editor? = null
 
     companion object {
-        var shared = PreferencesManager()
+
+        val shared = PreferencesManager()
         const val name = "UserPreferences"
 
         fun initializeFrom(context: Context) {
             shared.preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
             shared.editor = shared.preferences?.edit().also { it?.apply() }
         }
+
+        fun with(context: Context): PreferencesManager {
+            if (shared.preferences == null || shared.editor == null) {
+                initializeFrom(context)
+            }
+            return shared
+        }
     }
 
     inline operator fun <reified T>get(property: Properties, default: T): T {
-        
+
         if (this.preferences?.contains(property.name) == false) { return default }
-        
+
         return when (default) {
             is Int -> this.preferences?.getInt(property.name, default) as T
             is Long -> this.preferences?.getLong(property.name, default) as T
@@ -58,7 +68,7 @@ class PreferencesManager {
             is String -> this.preferences?.getString(property.name, default) as T
             else -> {
                 val json = this.preferences?.getString(property.name, "").orEmpty()
-                return Gson().fromJson<T>(json) ?: default
+                return Gson().from<T>(json) ?: default
             }
             // If you don't want to use Gson for custom classes:
             // else -> default
@@ -66,7 +76,7 @@ class PreferencesManager {
     }
 
     operator fun <T>set(property: Properties, value: T) {
-        
+
         when (value) {
             is Int -> this.editor?.putInt(property.name, value)
             is Long -> this.editor?.putLong(property.name, value)
@@ -101,9 +111,9 @@ class PreferencesManager {
     }
 }
 
-inline fun <reified T>Gson.fromJson(jsonString: String): T? {
+inline fun <reified T>Gson.from(json: String): T? {
     return try {
-        this.fromJson<T>(jsonString, T::class.java)
+        this.fromJson<T>(json, T::class.java)
     } catch (e: Exception) {
         null
     }
