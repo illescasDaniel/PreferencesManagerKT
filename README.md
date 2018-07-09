@@ -16,25 +16,25 @@ Setup
    ```
 
 1. Add your properties inside the `PreferencesManager` class (name of the values it will save):
-  ```kotlin
-  enum class Properties {
+   ```kotlin
+   enum class Properties {
       isLogged,
       username, password
       // ...
-  }
-  ```
+   }
+   ```
 
 2. Initialize the preferences manager in the **first activity** of the app:
 
-  ```kotlin
-  PreferencesManager.initializeFrom(this)
-  ```
+   ```kotlin
+   PreferencesManager.initializeFrom(this)
+   ```
 
-  **Or** just use the static funciton `with(context:)` indicating the activity context whenever you want to access the properties:
+   **Or** just use the static funciton `with(context:)` indicating the activity context whenever you want to access the properties:
 
-  ```kotlin
-  val isLogged = PreferencesManager.with(this)[Properties.isLogged, ""]
-  ```
+   ```kotlin
+   val isLogged = PreferencesManager.with(this)[Properties.isLogged, ""]
+   ```
 
 Usage
 -----
