@@ -24,39 +24,51 @@ SOFTWARE.
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.preference.PreferenceManager
 import com.google.gson.Gson
 
 class PreferencesManager {
 
     enum class Properties {
         isLogged,
-        username, password
+        username, password,
+        notify_followers
     }
 
     var preferences: SharedPreferences? = null
+        private set
     var editor: SharedPreferences.Editor? = null
+        private set
 
     companion object {
 
-        val shared = PreferencesManager()
-        const val name = "UserPreferences"
+        /**
+         * You need to call initializeFrom(context:) first, or use with(context:) static method.
+         */
+        val default = PreferencesManager()
+        val custom = PreferencesManager()
+        const val customName = "UserCustomPreferences"
 
         fun initializeFrom(context: Context) {
-            shared.preferences = context.getSharedPreferences(name, Context.MODE_PRIVATE)
-            shared.editor = shared.preferences?.edit().also { it?.apply() }
+
+            custom.preferences = context.getSharedPreferences(customName, Context.MODE_PRIVATE)
+            custom.editor = custom.preferences?.edit().also { it?.apply() }
+
+            default.preferences = PreferenceManager.getDefaultSharedPreferences(context)
+            default.editor = default.preferences?.edit().also { it?.apply() }
         }
 
         fun with(context: Context): PreferencesManager {
-            if (shared.preferences == null || shared.editor == null) {
+            if (custom.preferences == null || custom.editor == null) {
                 initializeFrom(context)
             }
-            return shared
+            return custom
         }
     }
 
     inline operator fun <reified T>get(property: Properties, default: T): T {
 
-        if (this.preferences?.contains(property.name) == false) { return default }
+        if (!this.exists(property.name)) { return default }
 
         return when (default) {
             is Int -> this.preferences?.getInt(property.name, default) as T
@@ -89,6 +101,10 @@ class PreferencesManager {
             // else -> return
         }
         this.editor?.apply()
+    }
+
+    fun exists(propertyKey: String): Boolean {
+        return this.preferences?.contains(propertyKey) == true
     }
 
     fun apply(vararg values: Pair<Any, Properties>) {

@@ -5,6 +5,8 @@
 
 A simple way to manage local values in your Android apps.
 
+You can get the preferences values for the default `SharedPreferences`with `default`, and your custom ones with `custom`. The preferences saved for switches for example are saved in the default `SharedPreferences`. 
+
 iOS version [here](https://github.com/illescasDaniel/PreferencesManagerSwift).
 
 Setup
@@ -33,7 +35,7 @@ Setup
    **Or** just use the static funciton `with(context:)` indicating the activity context whenever you want to access the properties:
 
    ```kotlin
-   val isLogged = PreferencesManager.with(this)[Properties.isLogged, ""]
+   val isLogged = PreferencesManager.customWith(this)[Properties.isLogged, ""]
    ```
 
 Usage
@@ -42,7 +44,8 @@ Usage
 ### Get saved values:
 
 ```Kotlin
-val savedUsername = PreferencesManager.shared[Properties.username, ""]
+val savedUsername = PreferencesManager.custom[Properties.username, ""]
+val switchValue = PreferencesManager.default[Properties.music_enabled, ""]
 ```
 
 **Notes:** second parameter is the default value. Also, you may want to add `import com.yourpackage.PreferencesManager.Properties` in the file you're using it.
@@ -51,12 +54,12 @@ val savedUsername = PreferencesManager.shared[Properties.username, ""]
 
 ```kotlin
 // When is only one
-PreferencesManager.shared[Properties.username] = "daniel"
+PreferencesManager.custom[Properties.username] = "daniel"
 
 // Recommended when modifying multiple properties
-PreferencesManager.shared.apply (
+PreferencesManager.custom.apply (
     username to Properties.username,
     password to Properties.password
 )
 ```
-**Optional:** you can change the internal preferences name value by modifying the `PreferencesManager.name` property.
+**Optional:** you can change the internal preferences name value by modifying the `PreferencesManager.customName` property.
